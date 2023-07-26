@@ -173,18 +173,8 @@ export type AssetFilter = {
 
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
-  categoryCollection?: Maybe<CategoryCollection>;
   entryCollection?: Maybe<EntryCollection>;
   postCollection?: Maybe<PostCollection>;
-};
-
-
-export type AssetLinkingCollectionsCategoryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<AssetLinkingCollectionsCategoryCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -204,24 +194,13 @@ export type AssetLinkingCollectionsPostCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export enum AssetLinkingCollectionsCategoryCollectionOrder {
-  SLUG_ASC = 'slug_ASC',
-  SLUG_DESC = 'slug_DESC',
-  SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
-  SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
-  SYS_ID_ASC = 'sys_id_ASC',
-  SYS_ID_DESC = 'sys_id_DESC',
-  SYS_PUBLISHEDAT_ASC = 'sys_publishedAt_ASC',
-  SYS_PUBLISHEDAT_DESC = 'sys_publishedAt_DESC',
-  SYS_PUBLISHEDVERSION_ASC = 'sys_publishedVersion_ASC',
-  SYS_PUBLISHEDVERSION_DESC = 'sys_publishedVersion_DESC',
-  TITLE_ASC = 'title_ASC',
-  TITLE_DESC = 'title_DESC'
-}
-
 export enum AssetLinkingCollectionsPostCollectionOrder {
+  DATE_ASC = 'date_ASC',
+  DATE_DESC = 'date_DESC',
   SLUG_ASC = 'slug_ASC',
   SLUG_DESC = 'slug_DESC',
+  SUBTITLE_ASC = 'subTitle_ASC',
+  SUBTITLE_DESC = 'subTitle_DESC',
   SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
   SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
   SYS_ID_ASC = 'sys_id_ASC',
@@ -257,22 +236,112 @@ export enum AssetOrder {
   WIDTH_DESC = 'width_DESC'
 }
 
+/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/author) */
+export type Author = Entry & {
+  __typename?: 'Author';
+  contentfulMetadata: ContentfulMetadata;
+  linkedFrom?: Maybe<AuthorLinkingCollections>;
+  name?: Maybe<Scalars['String']['output']>;
+  sys: Sys;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/author) */
+export type AuthorLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/author) */
+export type AuthorNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AuthorCollection = {
+  __typename?: 'AuthorCollection';
+  items: Array<Maybe<Author>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type AuthorFilter = {
+  AND?: InputMaybe<Array<InputMaybe<AuthorFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<AuthorFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_contains?: InputMaybe<Scalars['String']['input']>;
+  name_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  name_not?: InputMaybe<Scalars['String']['input']>;
+  name_not_contains?: InputMaybe<Scalars['String']['input']>;
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type AuthorLinkingCollections = {
+  __typename?: 'AuthorLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  postCollection?: Maybe<PostCollection>;
+};
+
+
+export type AuthorLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type AuthorLinkingCollectionsPostCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<AuthorLinkingCollectionsPostCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export enum AuthorLinkingCollectionsPostCollectionOrder {
+  DATE_ASC = 'date_ASC',
+  DATE_DESC = 'date_DESC',
+  SLUG_ASC = 'slug_ASC',
+  SLUG_DESC = 'slug_DESC',
+  SUBTITLE_ASC = 'subTitle_ASC',
+  SUBTITLE_DESC = 'subTitle_DESC',
+  SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
+  SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
+  SYS_ID_ASC = 'sys_id_ASC',
+  SYS_ID_DESC = 'sys_id_DESC',
+  SYS_PUBLISHEDAT_ASC = 'sys_publishedAt_ASC',
+  SYS_PUBLISHEDAT_DESC = 'sys_publishedAt_DESC',
+  SYS_PUBLISHEDVERSION_ASC = 'sys_publishedVersion_ASC',
+  SYS_PUBLISHEDVERSION_DESC = 'sys_publishedVersion_DESC',
+  TITLE_ASC = 'title_ASC',
+  TITLE_DESC = 'title_DESC'
+}
+
+export enum AuthorOrder {
+  NAME_ASC = 'name_ASC',
+  NAME_DESC = 'name_DESC',
+  SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
+  SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
+  SYS_ID_ASC = 'sys_id_ASC',
+  SYS_ID_DESC = 'sys_id_DESC',
+  SYS_PUBLISHEDAT_ASC = 'sys_publishedAt_ASC',
+  SYS_PUBLISHEDAT_DESC = 'sys_publishedAt_DESC',
+  SYS_PUBLISHEDVERSION_ASC = 'sys_publishedVersion_ASC',
+  SYS_PUBLISHEDVERSION_DESC = 'sys_publishedVersion_DESC'
+}
+
 /** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/category) */
 export type Category = Entry & {
   __typename?: 'Category';
-  banner?: Maybe<Asset>;
   contentfulMetadata: ContentfulMetadata;
   linkedFrom?: Maybe<CategoryLinkingCollections>;
   slug?: Maybe<Scalars['String']['output']>;
   sys: Sys;
   title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/category) */
-export type CategoryBannerArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -304,7 +373,6 @@ export type CategoryCollection = {
 export type CategoryFilter = {
   AND?: InputMaybe<Array<InputMaybe<CategoryFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CategoryFilter>>>;
-  banner_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   slug?: InputMaybe<Scalars['String']['input']>;
   slug_contains?: InputMaybe<Scalars['String']['input']>;
@@ -347,8 +415,12 @@ export type CategoryLinkingCollectionsPostCollectionArgs = {
 };
 
 export enum CategoryLinkingCollectionsPostCollectionOrder {
+  DATE_ASC = 'date_ASC',
+  DATE_DESC = 'date_DESC',
   SLUG_ASC = 'slug_ASC',
   SLUG_DESC = 'slug_DESC',
+  SUBTITLE_ASC = 'subTitle_ASC',
+  SUBTITLE_DESC = 'subTitle_DESC',
   SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
   SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
   SYS_ID_ASC = 'sys_id_ASC',
@@ -531,14 +603,28 @@ export type ImageTransformOptions = {
 /** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
 export type Post = Entry & {
   __typename?: 'Post';
+  authorsCollection?: Maybe<PostAuthorsCollection>;
   category?: Maybe<Category>;
   content?: Maybe<PostContent>;
   contentfulMetadata: ContentfulMetadata;
+  date?: Maybe<Scalars['DateTime']['output']>;
   linkedFrom?: Maybe<PostLinkingCollections>;
   slug?: Maybe<Scalars['String']['output']>;
+  subTitle?: Maybe<Scalars['String']['output']>;
   sys: Sys;
   thumbnail?: Maybe<Asset>;
   title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
+export type PostAuthorsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<PostAuthorsCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<AuthorFilter>;
 };
 
 
@@ -557,6 +643,12 @@ export type PostContentArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
+export type PostDateArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
 export type PostLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -564,6 +656,12 @@ export type PostLinkedFromArgs = {
 
 /** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
 export type PostSlugArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
+export type PostSubTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -579,6 +677,27 @@ export type PostThumbnailArgs = {
 export type PostTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
+export type PostAuthorsCollection = {
+  __typename?: 'PostAuthorsCollection';
+  items: Array<Maybe<Author>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export enum PostAuthorsCollectionOrder {
+  NAME_ASC = 'name_ASC',
+  NAME_DESC = 'name_DESC',
+  SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
+  SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
+  SYS_ID_ASC = 'sys_id_ASC',
+  SYS_ID_DESC = 'sys_id_DESC',
+  SYS_PUBLISHEDAT_ASC = 'sys_publishedAt_ASC',
+  SYS_PUBLISHEDAT_DESC = 'sys_publishedAt_DESC',
+  SYS_PUBLISHEDVERSION_ASC = 'sys_publishedVersion_ASC',
+  SYS_PUBLISHEDVERSION_DESC = 'sys_publishedVersion_DESC'
+}
 
 export type PostCollection = {
   __typename?: 'PostCollection';
@@ -622,12 +741,23 @@ export type PostContentResources = {
 export type PostFilter = {
   AND?: InputMaybe<Array<InputMaybe<PostFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<PostFilter>>>;
+  authors?: InputMaybe<CfAuthorNestedFilter>;
+  authorsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   category?: InputMaybe<CfCategoryNestedFilter>;
   category_exists?: InputMaybe<Scalars['Boolean']['input']>;
   content_contains?: InputMaybe<Scalars['String']['input']>;
   content_exists?: InputMaybe<Scalars['Boolean']['input']>;
   content_not_contains?: InputMaybe<Scalars['String']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  date?: InputMaybe<Scalars['DateTime']['input']>;
+  date_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  date_gt?: InputMaybe<Scalars['DateTime']['input']>;
+  date_gte?: InputMaybe<Scalars['DateTime']['input']>;
+  date_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  date_lt?: InputMaybe<Scalars['DateTime']['input']>;
+  date_lte?: InputMaybe<Scalars['DateTime']['input']>;
+  date_not?: InputMaybe<Scalars['DateTime']['input']>;
+  date_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   slug_contains?: InputMaybe<Scalars['String']['input']>;
   slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -635,6 +765,13 @@ export type PostFilter = {
   slug_not?: InputMaybe<Scalars['String']['input']>;
   slug_not_contains?: InputMaybe<Scalars['String']['input']>;
   slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  subTitle?: InputMaybe<Scalars['String']['input']>;
+  subTitle_contains?: InputMaybe<Scalars['String']['input']>;
+  subTitle_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  subTitle_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  subTitle_not?: InputMaybe<Scalars['String']['input']>;
+  subTitle_not_contains?: InputMaybe<Scalars['String']['input']>;
+  subTitle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
   thumbnail_exists?: InputMaybe<Scalars['Boolean']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -660,8 +797,12 @@ export type PostLinkingCollectionsEntryCollectionArgs = {
 };
 
 export enum PostOrder {
+  DATE_ASC = 'date_ASC',
+  DATE_DESC = 'date_DESC',
   SLUG_ASC = 'slug_ASC',
   SLUG_DESC = 'slug_DESC',
+  SUBTITLE_ASC = 'subTitle_ASC',
+  SUBTITLE_DESC = 'subTitle_DESC',
   SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
   SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
   SYS_ID_ASC = 'sys_id_ASC',
@@ -678,6 +819,8 @@ export type Query = {
   __typename?: 'Query';
   asset?: Maybe<Asset>;
   assetCollection?: Maybe<AssetCollection>;
+  author?: Maybe<Author>;
+  authorCollection?: Maybe<AuthorCollection>;
   category?: Maybe<Category>;
   categoryCollection?: Maybe<CategoryCollection>;
   entryCollection?: Maybe<EntryCollection>;
@@ -700,6 +843,23 @@ export type QueryAssetCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<AssetFilter>;
+};
+
+
+export type QueryAuthorArgs = {
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryAuthorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<AuthorOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<AuthorFilter>;
 };
 
 
@@ -805,10 +965,23 @@ export type SysFilter = {
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
 };
 
+export type CfAuthorNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfAuthorNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfAuthorNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_contains?: InputMaybe<Scalars['String']['input']>;
+  name_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  name_not?: InputMaybe<Scalars['String']['input']>;
+  name_not_contains?: InputMaybe<Scalars['String']['input']>;
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
 export type CfCategoryNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfCategoryNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfCategoryNestedFilter>>>;
-  banner_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   slug?: InputMaybe<Scalars['String']['input']>;
   slug_contains?: InputMaybe<Scalars['String']['input']>;
@@ -829,6 +1002,10 @@ export type CfCategoryNestedFilter = {
 
 export type CategoryFragment = { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } };
 
+export type PostFragment = { __typename?: 'Post', title?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
+
+export type PostDetailsFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
+
 export type CategoriesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -837,6 +1014,21 @@ export type CategoriesQueryVariables = Exact<{
 
 export type CategoriesQuery = { __typename?: 'Query', categoryCollection?: { __typename?: 'CategoryCollection', items: Array<{ __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null };
 
+export type PostQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type PostQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
+
+export type PostsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
+
 export const CategoryFragmentDoc = gql`
     fragment Category on Category {
   sys {
@@ -844,6 +1036,62 @@ export const CategoryFragmentDoc = gql`
   }
   title
   slug
+}
+    `;
+export const PostFragmentDoc = gql`
+    fragment Post on Post {
+  sys {
+    id
+  }
+  title
+  thumbnail {
+    title
+    url
+  }
+  authorsCollection {
+    items {
+      name
+    }
+  }
+}
+    `;
+export const PostDetailsFragmentDoc = gql`
+    fragment PostDetails on Post {
+  sys {
+    id
+  }
+  title
+  slug
+  subTitle
+  thumbnail {
+    title
+    url
+  }
+  category {
+    sys {
+      id
+    }
+    title
+  }
+  content {
+    json
+    links {
+      assets {
+        block {
+          sys {
+            id
+          }
+          url
+          description
+        }
+      }
+    }
+  }
+  authorsCollection {
+    items {
+      name
+    }
+  }
 }
     `;
 export const CategoriesDocument = gql`
@@ -884,6 +1132,81 @@ export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
 export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
 export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
+export const PostDocument = gql`
+    query Post($slug: String) {
+  postCollection(limit: 1, where: {slug: $slug}) {
+    items {
+      ...PostDetails
+    }
+  }
+}
+    ${PostDetailsFragmentDoc}`;
+
+/**
+ * __usePostQuery__
+ *
+ * To run a query within a React component, call `usePostQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function usePostQuery(baseOptions?: Apollo.QueryHookOptions<PostQuery, PostQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+      }
+export function usePostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostQuery, PostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+        }
+export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
+export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
+export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
+export const PostsDocument = gql`
+    query Posts($limit: Int, $skip: Int) {
+  postCollection(limit: $limit, skip: $skip) {
+    items {
+      ...Post
+    }
+  }
+}
+    ${PostFragmentDoc}`;
+
+/**
+ * __usePostsQuery__
+ *
+ * To run a query within a React component, call `usePostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function usePostsQuery(baseOptions?: Apollo.QueryHookOptions<PostsQuery, PostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostsQuery, PostsQueryVariables>(PostsDocument, options);
+      }
+export function usePostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostsQuery, PostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostsQuery, PostsQueryVariables>(PostsDocument, options);
+        }
+export type PostsQueryHookResult = ReturnType<typeof usePostsQuery>;
+export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
+export type PostsQueryResult = Apollo.QueryResult<PostsQuery, PostsQueryVariables>;
 export type AssetKeySpecifier = ('contentType' | 'contentfulMetadata' | 'description' | 'fileName' | 'height' | 'linkedFrom' | 'size' | 'sys' | 'title' | 'url' | 'width' | AssetKeySpecifier)[];
 export type AssetFieldPolicy = {
 	contentType?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -905,15 +1228,32 @@ export type AssetCollectionFieldPolicy = {
 	skip?: FieldPolicy<any> | FieldReadFunction<any>,
 	total?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type AssetLinkingCollectionsKeySpecifier = ('categoryCollection' | 'entryCollection' | 'postCollection' | AssetLinkingCollectionsKeySpecifier)[];
+export type AssetLinkingCollectionsKeySpecifier = ('entryCollection' | 'postCollection' | AssetLinkingCollectionsKeySpecifier)[];
 export type AssetLinkingCollectionsFieldPolicy = {
-	categoryCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	entryCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	postCollection?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type CategoryKeySpecifier = ('banner' | 'contentfulMetadata' | 'linkedFrom' | 'slug' | 'sys' | 'title' | CategoryKeySpecifier)[];
+export type AuthorKeySpecifier = ('contentfulMetadata' | 'linkedFrom' | 'name' | 'sys' | AuthorKeySpecifier)[];
+export type AuthorFieldPolicy = {
+	contentfulMetadata?: FieldPolicy<any> | FieldReadFunction<any>,
+	linkedFrom?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	sys?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type AuthorCollectionKeySpecifier = ('items' | 'limit' | 'skip' | 'total' | AuthorCollectionKeySpecifier)[];
+export type AuthorCollectionFieldPolicy = {
+	items?: FieldPolicy<any> | FieldReadFunction<any>,
+	limit?: FieldPolicy<any> | FieldReadFunction<any>,
+	skip?: FieldPolicy<any> | FieldReadFunction<any>,
+	total?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type AuthorLinkingCollectionsKeySpecifier = ('entryCollection' | 'postCollection' | AuthorLinkingCollectionsKeySpecifier)[];
+export type AuthorLinkingCollectionsFieldPolicy = {
+	entryCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	postCollection?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type CategoryKeySpecifier = ('contentfulMetadata' | 'linkedFrom' | 'slug' | 'sys' | 'title' | CategoryKeySpecifier)[];
 export type CategoryFieldPolicy = {
-	banner?: FieldPolicy<any> | FieldReadFunction<any>,
 	contentfulMetadata?: FieldPolicy<any> | FieldReadFunction<any>,
 	linkedFrom?: FieldPolicy<any> | FieldReadFunction<any>,
 	slug?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -953,16 +1293,26 @@ export type EntryCollectionFieldPolicy = {
 	skip?: FieldPolicy<any> | FieldReadFunction<any>,
 	total?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PostKeySpecifier = ('category' | 'content' | 'contentfulMetadata' | 'linkedFrom' | 'slug' | 'sys' | 'thumbnail' | 'title' | PostKeySpecifier)[];
+export type PostKeySpecifier = ('authorsCollection' | 'category' | 'content' | 'contentfulMetadata' | 'date' | 'linkedFrom' | 'slug' | 'subTitle' | 'sys' | 'thumbnail' | 'title' | PostKeySpecifier)[];
 export type PostFieldPolicy = {
+	authorsCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	category?: FieldPolicy<any> | FieldReadFunction<any>,
 	content?: FieldPolicy<any> | FieldReadFunction<any>,
 	contentfulMetadata?: FieldPolicy<any> | FieldReadFunction<any>,
+	date?: FieldPolicy<any> | FieldReadFunction<any>,
 	linkedFrom?: FieldPolicy<any> | FieldReadFunction<any>,
 	slug?: FieldPolicy<any> | FieldReadFunction<any>,
+	subTitle?: FieldPolicy<any> | FieldReadFunction<any>,
 	sys?: FieldPolicy<any> | FieldReadFunction<any>,
 	thumbnail?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type PostAuthorsCollectionKeySpecifier = ('items' | 'limit' | 'skip' | 'total' | PostAuthorsCollectionKeySpecifier)[];
+export type PostAuthorsCollectionFieldPolicy = {
+	items?: FieldPolicy<any> | FieldReadFunction<any>,
+	limit?: FieldPolicy<any> | FieldReadFunction<any>,
+	skip?: FieldPolicy<any> | FieldReadFunction<any>,
+	total?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type PostCollectionKeySpecifier = ('items' | 'limit' | 'skip' | 'total' | PostCollectionKeySpecifier)[];
 export type PostCollectionFieldPolicy = {
@@ -1001,10 +1351,12 @@ export type PostLinkingCollectionsKeySpecifier = ('entryCollection' | PostLinkin
 export type PostLinkingCollectionsFieldPolicy = {
 	entryCollection?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('asset' | 'assetCollection' | 'category' | 'categoryCollection' | 'entryCollection' | 'post' | 'postCollection' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('asset' | 'assetCollection' | 'author' | 'authorCollection' | 'category' | 'categoryCollection' | 'entryCollection' | 'post' | 'postCollection' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	asset?: FieldPolicy<any> | FieldReadFunction<any>,
 	assetCollection?: FieldPolicy<any> | FieldReadFunction<any>,
+	author?: FieldPolicy<any> | FieldReadFunction<any>,
+	authorCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	category?: FieldPolicy<any> | FieldReadFunction<any>,
 	categoryCollection?: FieldPolicy<any> | FieldReadFunction<any>,
 	entryCollection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1043,6 +1395,18 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | AssetLinkingCollectionsKeySpecifier | (() => undefined | AssetLinkingCollectionsKeySpecifier),
 		fields?: AssetLinkingCollectionsFieldPolicy,
 	},
+	Author?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AuthorKeySpecifier | (() => undefined | AuthorKeySpecifier),
+		fields?: AuthorFieldPolicy,
+	},
+	AuthorCollection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AuthorCollectionKeySpecifier | (() => undefined | AuthorCollectionKeySpecifier),
+		fields?: AuthorCollectionFieldPolicy,
+	},
+	AuthorLinkingCollections?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AuthorLinkingCollectionsKeySpecifier | (() => undefined | AuthorLinkingCollectionsKeySpecifier),
+		fields?: AuthorLinkingCollectionsFieldPolicy,
+	},
 	Category?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CategoryKeySpecifier | (() => undefined | CategoryKeySpecifier),
 		fields?: CategoryFieldPolicy,
@@ -1074,6 +1438,10 @@ export type StrictTypedTypePolicies = {
 	Post?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | PostKeySpecifier | (() => undefined | PostKeySpecifier),
 		fields?: PostFieldPolicy,
+	},
+	PostAuthorsCollection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PostAuthorsCollectionKeySpecifier | (() => undefined | PostAuthorsCollectionKeySpecifier),
+		fields?: PostAuthorsCollectionFieldPolicy,
 	},
 	PostCollection?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | PostCollectionKeySpecifier | (() => undefined | PostCollectionKeySpecifier),
