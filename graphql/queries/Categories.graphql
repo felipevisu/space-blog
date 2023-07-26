@@ -1,0 +1,7 @@
+query Categories($limit: Int, $skip: Int) {
+  categoryCollection(limit: $limit, skip: $skip) {
+    items {
+      ...Category
+    }
+  }
+}
