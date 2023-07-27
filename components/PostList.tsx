@@ -7,20 +7,25 @@ interface PostListProps {
 }
 
 export const PostList = ({ posts }: PostListProps) => {
+  if (!posts.length)
+    return <div className="text-white text-center">No articles found.</div>;
+
   return (
-    <div>
+    <div className="grid grid-cols-2 gap-6 mb-6">
       {posts.map((post) => (
         <div key={post?.sys.id}>
           <Link href={`/${post.category?.slug}/${post?.slug}`}>
             {post.thumbnail?.url && (
-              <Image
-                src={post.thumbnail?.url}
-                alt={post.thumbnail?.title || post.title || ""}
-                width={640}
-                height={320}
-              />
+              <div className="relative overflow-hidden rounded-md h-80 mb-3">
+                <Image
+                  src={post.thumbnail?.url}
+                  alt={post.thumbnail?.title || post.title || ""}
+                  layout={"fill"}
+                  objectFit="cover"
+                />
+              </div>
             )}
-            {post?.title}
+            <h4 className="text-white font-semibold text-lg">{post?.title}</h4>
           </Link>
         </div>
       ))}

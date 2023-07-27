@@ -13,6 +13,8 @@ export const Pagination = ({ total }: Pagination) => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const page = searchParams.get("page") || "1";
+  const pageNumber = parseInt(page);
   const pages: number = Math.floor(total / PAGE_SIZE);
   const pagesArray = Array.from({ length: pages }, (_, i) => i + 1);
 
@@ -31,12 +33,18 @@ export const Pagination = ({ total }: Pagination) => {
   };
 
   return (
-    <>
+    <div className="flex justify-center space-x-2 mb-6">
       {pagesArray.map((i) => (
-        <button key={i} onClick={() => handleClick(i)}>
+        <button
+          key={i}
+          onClick={() => handleClick(i)}
+          className={`w-10 h-10 bg-gray-700 ${
+            pageNumber === i && "bg-gray-400"
+          } hover:bg-gray-600 rounded-md text-white`}
+        >
           {i}
         </button>
       ))}
-    </>
+    </div>
   );
 };

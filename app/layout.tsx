@@ -37,21 +37,31 @@ export default async function RootLayout({
 }) {
   const { categories } = await getData();
   return (
-    <html lang="en">
+    <html lang="en" className="bg-gray-800">
       <body className={inter.className}>
-        <h1>
-          <Link href="/">A Blog about Space</Link>
-        </h1>
-        <hr />
-        <nav>
-          {categories.map((category) => (
-            <div key={category?.sys.id}>
-              <Link href={`/${category?.slug}`}>{category?.title}</Link>
-            </div>
-          ))}
-        </nav>
-        <hr />
-        {children}
+        <div className="container max-w-screen-xl mx-auto px-3">
+          <header className="border-b">
+            <h1 className="text-3xl text-white font-bold py-4">
+              <Link href="/">
+                <span className="hover:text-yellow-500">
+                  A Blog about Space
+                </span>
+              </Link>
+            </h1>
+          </header>
+          <nav className="flex space-x-6 py-4 border-b mb-6">
+            {categories.map((category) => (
+              <div key={category?.sys.id}>
+                <Link href={`/${category?.slug}`}>
+                  <span className="text-white font-semibold hover:text-yellow-500">
+                    {category?.title}
+                  </span>
+                </Link>
+              </div>
+            ))}
+          </nav>
+          {children}
+        </div>
       </body>
     </html>
   );

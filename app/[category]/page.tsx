@@ -76,10 +76,10 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   return (
     <div>
-      <h3>{category.title}</h3>
-      <hr />
+      <h3 className="text-center text-2xl text-white font-bold mb-6">
+        {category.title}
+      </h3>
       <PostList posts={posts} />
-      <hr />
       <Pagination total={total} />
     </div>
   );
