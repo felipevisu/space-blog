@@ -6,7 +6,6 @@ import {
   CategoryDocument,
   CategoryFragment,
   CategoryQuery,
-  PostFragment,
   PostsDocument,
   PostsQuery,
 } from "@/graphql/types";
@@ -14,6 +13,21 @@ import client from "@/lib/client";
 import { ApolloQueryResult } from "@apollo/client";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Pagination } from "./pagination";
+import { PAGE_SIZE } from "@/lib/constants";
+
+interface Data {
+  category?: CategoryFragment;
+  posts: PostsQuery["postCollection"];
+}
+
+type Params = { category: string };
+type SearchParams = Record<string, string>;
+
+interface PageProps {
+  params: Params;
+  searchParams: SearchParams;
+}
 
 export const generateStaticParams = async () => {
   const { data }: ApolloQueryResult<CategoriesPathsQuery> =
@@ -28,44 +42,41 @@ export const generateStaticParams = async () => {
   return paths || [];
 };
 
-interface Data {
-  category?: CategoryFragment;
-  posts: Array<PostFragment | null>;
-}
-
-const getData = async (slug: string): Promise<Data> => {
+const getData = async (
+  params: Params,
+  searchParams: SearchParams
+): Promise<Data> => {
   const categoryQuery: ApolloQueryResult<CategoryQuery> =
     await client.query<CategoryQuery>({
       query: CategoryDocument,
-      variables: { slug: slug },
+      variables: { slug: params.category },
     });
+
+  const page = parseInt(searchParams["page"]) || 1;
+  const skip = (page - 1) * PAGE_SIZE;
 
   const postsQuery: ApolloQueryResult<PostsQuery> =
     await client.query<PostsQuery>({
       query: PostsDocument,
-      variables: { category: slug },
+      variables: { limit: PAGE_SIZE, skip: skip, category: params.category },
     });
 
   return {
     category: categoryQuery.data?.categoryCollection?.items[0] || undefined,
-    posts: postsQuery.data?.postCollection?.items || [],
+    posts: postsQuery.data?.postCollection,
   };
 };
 
-interface PageProps {
-  params: { category: string };
-}
-
-export default async function Page({ params }: PageProps) {
-  const { category, posts } = await getData(params.category);
-  if (!category) return notFound();
+export default async function Page({ params, searchParams }: PageProps) {
+  const { category, posts } = await getData(params, searchParams);
+  if (!category || !posts) return notFound();
 
   return (
     <div>
       <h3>{category.title}</h3>
       <hr />
       <div>
-        {posts.map((post) => (
+        {posts.items.map((post) => (
           <div key={post?.sys.id}>
             <Link href={`/${params.category}/${post?.slug}`}>
               {post?.title}
@@ -73,6 +84,8 @@ export default async function Page({ params }: PageProps) {
           </div>
         ))}
       </div>
+      <hr />
+      <Pagination total={posts.total} />
     </div>
   );
 }

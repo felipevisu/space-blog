@@ -4,6 +4,7 @@ query Posts($limit: Int, $skip: Int, $category: String) {
     skip: $skip
     where: { category: { slug: $category } }
   ) {
+    total
     items {
       ...Post
     }
