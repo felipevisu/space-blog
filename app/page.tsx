@@ -1,39 +1,45 @@
 import client from "@/lib/client";
-import {
-  CategoriesDocument,
-  CategoriesQuery,
-  CategoryFragment,
-} from "@/graphql/types";
+import { PostFragment, PostsDocument, PostsQuery } from "@/graphql/types";
 import { ApolloQueryResult } from "@apollo/client";
-import Link from "next/link";
 
-interface Data {
-  categories: Array<CategoryFragment | null>;
+import { PAGE_SIZE } from "@/lib/constants";
+import { PostList } from "@/components/PostList";
+import { Pagination } from "@/components/Pagination";
+
+type SearchParams = Record<string, string>;
+
+interface PageProps {
+  searchParams: SearchParams;
 }
 
-const getData = async (): Promise<Data> => {
-  const categoriesQuery: ApolloQueryResult<CategoriesQuery> =
-    await client.query<CategoriesQuery>({
-      query: CategoriesDocument,
+interface Data {
+  posts: PostFragment[];
+  total: number;
+}
+
+const getData = async (searchParams: SearchParams): Promise<Data> => {
+  const page = parseInt(searchParams["page"]) || 1;
+  const skip = (page - 1) * PAGE_SIZE;
+
+  const postsQuery: ApolloQueryResult<PostsQuery> =
+    await client.query<PostsQuery>({
+      query: PostsDocument,
+      variables: { limit: PAGE_SIZE, skip: skip },
     });
 
   return {
-    categories: categoriesQuery.data?.categoryCollection?.items || [],
+    posts: (postsQuery.data?.postCollection?.items as PostFragment[]) || [],
+    total: postsQuery.data?.postCollection?.total || 0,
   };
 };
 
-export default async function Home() {
-  const { categories } = await getData();
+export default async function Home({ searchParams }: PageProps) {
+  const { posts, total } = await getData(searchParams);
 
   return (
     <main className="">
-      <div>
-        {categories.map((category) => (
-          <div key={category?.sys.id}>
-            <Link href={`/${category?.slug}`}>{category?.title}</Link>
-          </div>
-        ))}
-      </div>
+      <PostList posts={posts} />
+      <Pagination total={total} />
     </main>
   );
 }
