@@ -14,6 +14,7 @@ fragment PostDetails on Post {
       id
     }
     title
+    slug
   }
   content {
     json

@@ -2,6 +2,7 @@
 
 import { PAGE_SIZE } from "@/lib/constants";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useCallback } from "react";
 
 interface Pagination {
   total: number;
@@ -15,10 +16,18 @@ export const Pagination = ({ total }: Pagination) => {
   const pages: number = Math.floor(total / PAGE_SIZE);
   const pagesArray = Array.from({ length: pages }, (_, i) => i + 1);
 
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   const handleClick = (value: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", value.toString());
-    router.push(pathname + "?" + params.toString());
+    const queryString = createQueryString("page", value.toString());
+    router.push(pathname + "?" + queryString);
   };
 
   return (

@@ -1002,9 +1002,9 @@ export type CfCategoryNestedFilter = {
 
 export type CategoryFragment = { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } };
 
-export type PostFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
+export type PostFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', slug?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
 
-export type PostDetailsFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
+export type PostDetailsFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
 
 export type CategoriesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1034,7 +1034,7 @@ export type PostQueryVariables = Exact<{
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
+export type PostQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
 
 export type PostsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1043,7 +1043,7 @@ export type PostsQueryVariables = Exact<{
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', total: number, items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
+export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', total: number, items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', slug?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
 
 export type PostsPathsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1073,6 +1073,9 @@ export const PostFragmentDoc = gql`
     title
     url
   }
+  category {
+    slug
+  }
   authorsCollection {
     items {
       name
@@ -1097,6 +1100,7 @@ export const PostDetailsFragmentDoc = gql`
       id
     }
     title
+    slug
   }
   content {
     json

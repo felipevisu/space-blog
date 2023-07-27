@@ -6,19 +6,21 @@ import {
   CategoryDocument,
   CategoryFragment,
   CategoryQuery,
+  PostFragment,
   PostsDocument,
   PostsQuery,
 } from "@/graphql/types";
 import client from "@/lib/client";
 import { ApolloQueryResult } from "@apollo/client";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Pagination } from "./pagination";
+import { Pagination } from "../../components/Pagination";
 import { PAGE_SIZE } from "@/lib/constants";
+import { PostList } from "@/components/PostList";
 
 interface Data {
   category?: CategoryFragment;
-  posts: PostsQuery["postCollection"];
+  posts: PostFragment[];
+  total: number;
 }
 
 type Params = { category: string };
@@ -63,29 +65,22 @@ const getData = async (
 
   return {
     category: categoryQuery.data?.categoryCollection?.items[0] || undefined,
-    posts: postsQuery.data?.postCollection,
+    posts: (postsQuery.data?.postCollection?.items as PostFragment[]) || [],
+    total: postsQuery.data?.postCollection?.total || 0,
   };
 };
 
 export default async function Page({ params, searchParams }: PageProps) {
-  const { category, posts } = await getData(params, searchParams);
-  if (!category || !posts) return notFound();
+  const { category, posts, total } = await getData(params, searchParams);
+  if (!category) return notFound();
 
   return (
     <div>
       <h3>{category.title}</h3>
       <hr />
-      <div>
-        {posts.items.map((post) => (
-          <div key={post?.sys.id}>
-            <Link href={`/${params.category}/${post?.slug}`}>
-              {post?.title}
-            </Link>
-          </div>
-        ))}
-      </div>
+      <PostList posts={posts} />
       <hr />
-      <Pagination total={posts.total} />
+      <Pagination total={total} />
     </div>
   );
 }

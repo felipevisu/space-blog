@@ -1,8 +1,9 @@
 export const revalidate = 60;
 
+import { PostDetails } from "@/components/PostDetails";
 import {
+  PostDetailsFragment,
   PostDocument,
-  PostFragment,
   PostQuery,
   PostsPathsDocument,
   PostsPathsQuery,
@@ -25,7 +26,7 @@ export const generateStaticParams = async () => {
 };
 
 interface Data {
-  post?: PostFragment;
+  post?: PostDetailsFragment;
 }
 
 interface PageProps {
@@ -49,5 +50,5 @@ export default async function Page({ params }: PageProps) {
   const { post } = await getData(params.post);
   if (!post) return notFound();
 
-  return <div>{post?.title}</div>;
+  return <PostDetails post={post} />;
 }

@@ -8,6 +8,9 @@ fragment Post on Post {
     title
     url
   }
+  category {
+    slug
+  }
   authorsCollection {
     items {
       name
