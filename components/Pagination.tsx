@@ -15,7 +15,7 @@ export const Pagination = ({ total }: Pagination) => {
 
   const page = searchParams.get("page") || "1";
   const pageNumber = parseInt(page);
-  const pages: number = Math.floor(total / PAGE_SIZE);
+  const pages: number = Math.ceil(total / PAGE_SIZE);
   const pagesArray = Array.from({ length: pages }, (_, i) => i + 1);
 
   const createQueryString = useCallback(
