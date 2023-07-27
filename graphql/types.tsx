@@ -1022,6 +1022,13 @@ export type CategoriesPathsQueryVariables = Exact<{
 
 export type CategoriesPathsQuery = { __typename?: 'Query', categoryCollection?: { __typename?: 'CategoryCollection', items: Array<{ __typename?: 'Category', slug?: string | null } | null> } | null };
 
+export type CategoryQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CategoryQuery = { __typename?: 'Query', categoryCollection?: { __typename?: 'CategoryCollection', items: Array<{ __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null };
+
 export type PostQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -1190,6 +1197,43 @@ export function useCategoriesPathsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type CategoriesPathsQueryHookResult = ReturnType<typeof useCategoriesPathsQuery>;
 export type CategoriesPathsLazyQueryHookResult = ReturnType<typeof useCategoriesPathsLazyQuery>;
 export type CategoriesPathsQueryResult = Apollo.QueryResult<CategoriesPathsQuery, CategoriesPathsQueryVariables>;
+export const CategoryDocument = gql`
+    query Category($slug: String) {
+  categoryCollection(limit: 1, where: {slug: $slug}) {
+    items {
+      ...Category
+    }
+  }
+}
+    ${CategoryFragmentDoc}`;
+
+/**
+ * __useCategoryQuery__
+ *
+ * To run a query within a React component, call `useCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCategoryQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useCategoryQuery(baseOptions?: Apollo.QueryHookOptions<CategoryQuery, CategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CategoryQuery, CategoryQueryVariables>(CategoryDocument, options);
+      }
+export function useCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoryQuery, CategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CategoryQuery, CategoryQueryVariables>(CategoryDocument, options);
+        }
+export type CategoryQueryHookResult = ReturnType<typeof useCategoryQuery>;
+export type CategoryLazyQueryHookResult = ReturnType<typeof useCategoryLazyQuery>;
+export type CategoryQueryResult = Apollo.QueryResult<CategoryQuery, CategoryQueryVariables>;
 export const PostDocument = gql`
     query Post($slug: String) {
   postCollection(limit: 1, where: {slug: $slug}) {
