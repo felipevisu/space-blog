@@ -3,6 +3,7 @@ fragment Post on Post {
     id
   }
   title
+  slug
   thumbnail {
     title
     url
@@ -11,5 +12,8 @@ fragment Post on Post {
     items {
       name
     }
+  }
+  category {
+    slug
   }
 }

@@ -1002,7 +1002,7 @@ export type CfCategoryNestedFilter = {
 
 export type CategoryFragment = { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } };
 
-export type PostFragment = { __typename?: 'Post', title?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
+export type PostFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null, category?: { __typename?: 'Category', slug?: string | null } | null };
 
 export type PostDetailsFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
 
@@ -1013,6 +1013,14 @@ export type CategoriesQueryVariables = Exact<{
 
 
 export type CategoriesQuery = { __typename?: 'Query', categoryCollection?: { __typename?: 'CategoryCollection', items: Array<{ __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null };
+
+export type CategoriesPathsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type CategoriesPathsQuery = { __typename?: 'Query', categoryCollection?: { __typename?: 'CategoryCollection', items: Array<{ __typename?: 'Category', slug?: string | null } | null> } | null };
 
 export type PostQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -1027,7 +1035,15 @@ export type PostsQueryVariables = Exact<{
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
+export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null, category?: { __typename?: 'Category', slug?: string | null } | null } | null> } | null };
+
+export type PostsPathsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type PostsPathsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', slug?: string | null, category?: { __typename?: 'Category', slug?: string | null } | null } | null> } | null };
 
 export const CategoryFragmentDoc = gql`
     fragment Category on Category {
@@ -1044,6 +1060,7 @@ export const PostFragmentDoc = gql`
     id
   }
   title
+  slug
   thumbnail {
     title
     url
@@ -1052,6 +1069,9 @@ export const PostFragmentDoc = gql`
     items {
       name
     }
+  }
+  category {
+    slug
   }
 }
     `;
@@ -1132,6 +1152,44 @@ export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
 export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
 export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
+export const CategoriesPathsDocument = gql`
+    query CategoriesPaths($limit: Int, $skip: Int) {
+  categoryCollection(limit: $limit, skip: $skip) {
+    items {
+      slug
+    }
+  }
+}
+    `;
+
+/**
+ * __useCategoriesPathsQuery__
+ *
+ * To run a query within a React component, call `useCategoriesPathsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoriesPathsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCategoriesPathsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useCategoriesPathsQuery(baseOptions?: Apollo.QueryHookOptions<CategoriesPathsQuery, CategoriesPathsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CategoriesPathsQuery, CategoriesPathsQueryVariables>(CategoriesPathsDocument, options);
+      }
+export function useCategoriesPathsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoriesPathsQuery, CategoriesPathsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CategoriesPathsQuery, CategoriesPathsQueryVariables>(CategoriesPathsDocument, options);
+        }
+export type CategoriesPathsQueryHookResult = ReturnType<typeof useCategoriesPathsQuery>;
+export type CategoriesPathsLazyQueryHookResult = ReturnType<typeof useCategoriesPathsLazyQuery>;
+export type CategoriesPathsQueryResult = Apollo.QueryResult<CategoriesPathsQuery, CategoriesPathsQueryVariables>;
 export const PostDocument = gql`
     query Post($slug: String) {
   postCollection(limit: 1, where: {slug: $slug}) {
@@ -1207,6 +1265,47 @@ export function usePostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Post
 export type PostsQueryHookResult = ReturnType<typeof usePostsQuery>;
 export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
 export type PostsQueryResult = Apollo.QueryResult<PostsQuery, PostsQueryVariables>;
+export const PostsPathsDocument = gql`
+    query PostsPaths($limit: Int, $skip: Int) {
+  postCollection(limit: $limit, skip: $skip) {
+    items {
+      slug
+      category {
+        slug
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __usePostsPathsQuery__
+ *
+ * To run a query within a React component, call `usePostsPathsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostsPathsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostsPathsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function usePostsPathsQuery(baseOptions?: Apollo.QueryHookOptions<PostsPathsQuery, PostsPathsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostsPathsQuery, PostsPathsQueryVariables>(PostsPathsDocument, options);
+      }
+export function usePostsPathsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostsPathsQuery, PostsPathsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostsPathsQuery, PostsPathsQueryVariables>(PostsPathsDocument, options);
+        }
+export type PostsPathsQueryHookResult = ReturnType<typeof usePostsPathsQuery>;
+export type PostsPathsLazyQueryHookResult = ReturnType<typeof usePostsPathsLazyQuery>;
+export type PostsPathsQueryResult = Apollo.QueryResult<PostsPathsQuery, PostsPathsQueryVariables>;
 export type AssetKeySpecifier = ('contentType' | 'contentfulMetadata' | 'description' | 'fileName' | 'height' | 'linkedFrom' | 'size' | 'sys' | 'title' | 'url' | 'width' | AssetKeySpecifier)[];
 export type AssetFieldPolicy = {
 	contentType?: FieldPolicy<any> | FieldReadFunction<any>,

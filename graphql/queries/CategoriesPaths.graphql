@@ -1,0 +1,7 @@
+query CategoriesPaths($limit: Int, $skip: Int) {
+  categoryCollection(limit: $limit, skip: $skip) {
+    items {
+      slug
+    }
+  }
+}

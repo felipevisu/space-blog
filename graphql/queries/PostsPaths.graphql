@@ -1,0 +1,10 @@
+query PostsPaths($limit: Int, $skip: Int) {
+  postCollection(limit: $limit, skip: $skip) {
+    items {
+      slug
+      category {
+        slug
+      }
+    }
+  }
+}
