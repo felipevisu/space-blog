@@ -1,5 +1,9 @@
 query Categories($limit: Int, $skip: Int) {
-  categoryCollection(limit: $limit, skip: $skip) {
+  categoryCollection(
+    limit: $limit
+    skip: $skip
+    order: sys_firstPublishedAt_DESC
+  ) {
     items {
       ...Category
     }

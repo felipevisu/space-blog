@@ -2,6 +2,7 @@ query Posts($limit: Int, $skip: Int, $category: String) {
   postCollection(
     limit: $limit
     skip: $skip
+    order: sys_firstPublishedAt_DESC
     where: { category: { slug: $category } }
   ) {
     total

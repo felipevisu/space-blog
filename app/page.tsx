@@ -1,4 +1,4 @@
-export const revalidate = 60;
+export const revalidate = 10;
 
 import client from "@/lib/client";
 import { PostFragment, PostsDocument, PostsQuery } from "@/graphql/types";
@@ -27,6 +27,7 @@ const getData = async (searchParams: SearchParams): Promise<Data> => {
     await client.query<PostsQuery>({
       query: PostsDocument,
       variables: { limit: PAGE_SIZE, skip: skip },
+      fetchPolicy: "network-only",
     });
 
   return {

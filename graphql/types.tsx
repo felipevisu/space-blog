@@ -1125,7 +1125,7 @@ export const PostDetailsFragmentDoc = gql`
     `;
 export const CategoriesDocument = gql`
     query Categories($limit: Int, $skip: Int) {
-  categoryCollection(limit: $limit, skip: $skip) {
+  categoryCollection(limit: $limit, skip: $skip, order: sys_firstPublishedAt_DESC) {
     items {
       ...Category
     }
@@ -1163,7 +1163,7 @@ export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQ
 export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
 export const CategoriesPathsDocument = gql`
     query CategoriesPaths($limit: Int, $skip: Int) {
-  categoryCollection(limit: $limit, skip: $skip) {
+  categoryCollection(limit: $limit, skip: $skip, order: sys_firstPublishedAt_DESC) {
     items {
       slug
     }
@@ -1275,7 +1275,12 @@ export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
 export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
 export const PostsDocument = gql`
     query Posts($limit: Int, $skip: Int, $category: String) {
-  postCollection(limit: $limit, skip: $skip, where: {category: {slug: $category}}) {
+  postCollection(
+    limit: $limit
+    skip: $skip
+    order: sys_firstPublishedAt_DESC
+    where: {category: {slug: $category}}
+  ) {
     total
     items {
       ...Post
@@ -1315,7 +1320,7 @@ export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
 export type PostsQueryResult = Apollo.QueryResult<PostsQuery, PostsQueryVariables>;
 export const PostsPathsDocument = gql`
     query PostsPaths($limit: Int, $skip: Int) {
-  postCollection(limit: $limit, skip: $skip) {
+  postCollection(limit: $limit, skip: $skip, order: sys_firstPublishedAt_ASC) {
     items {
       slug
       category {

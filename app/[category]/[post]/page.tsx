@@ -16,6 +16,7 @@ export const generateStaticParams = async () => {
   const { data }: ApolloQueryResult<PostsPathsQuery> =
     await client.query<PostsPathsQuery>({
       query: PostsPathsDocument,
+      fetchPolicy: "network-only",
     });
 
   const paths = data?.postCollection?.items.map((post) => {

@@ -1,4 +1,4 @@
-export const revalidate = 60;
+export const revalidate = 10;
 
 import {
   CategoriesPathsDocument,
@@ -35,6 +35,7 @@ export const generateStaticParams = async () => {
   const { data }: ApolloQueryResult<CategoriesPathsQuery> =
     await client.query<CategoriesPathsQuery>({
       query: CategoriesPathsDocument,
+      fetchPolicy: "network-only",
     });
 
   const paths = data?.categoryCollection?.items.map((category) => {
@@ -52,6 +53,7 @@ const getData = async (
     await client.query<CategoryQuery>({
       query: CategoryDocument,
       variables: { slug: params.category },
+      fetchPolicy: "network-only",
     });
 
   const page = parseInt(searchParams["page"]) || 1;
@@ -61,6 +63,7 @@ const getData = async (
     await client.query<PostsQuery>({
       query: PostsDocument,
       variables: { limit: PAGE_SIZE, skip: skip, category: params.category },
+      fetchPolicy: "network-only",
     });
 
   return {

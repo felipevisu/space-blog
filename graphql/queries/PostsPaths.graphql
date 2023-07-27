@@ -1,5 +1,5 @@
 query PostsPaths($limit: Int, $skip: Int) {
-  postCollection(limit: $limit, skip: $skip) {
+  postCollection(limit: $limit, skip: $skip, order: sys_firstPublishedAt_ASC) {
     items {
       slug
       category {

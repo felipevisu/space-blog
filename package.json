@@ -5,12 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3030",
     "lint": "next lint",
     "gen": "graphql-codegen --config codegen.yml --require dotenv/config"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.15",
+    "@apollo/client": "^3.8.0-rc.1",
+    "@apollo/experimental-nextjs-app-support": "^0.4.1",
     "@contentful/rich-text-react-renderer": "^15.17.0",
     "@types/node": "20.4.5",
     "@types/react": "18.2.16",
