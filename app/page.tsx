@@ -1,34 +1,36 @@
 import client from "@/lib/client";
-import { PostFragment, PostsDocument, PostsQuery } from "@/graphql/types";
+import {
+  CategoriesDocument,
+  CategoriesQuery,
+  CategoryFragment,
+} from "@/graphql/types";
 import { ApolloQueryResult } from "@apollo/client";
 import Link from "next/link";
 
 interface Data {
-  posts: Array<PostFragment | null>;
+  categories: Array<CategoryFragment | null>;
 }
 
 const getData = async (): Promise<Data> => {
-  const postsQuery: ApolloQueryResult<PostsQuery> =
-    await client.query<PostsQuery>({
-      query: PostsDocument,
+  const categoriesQuery: ApolloQueryResult<CategoriesQuery> =
+    await client.query<CategoriesQuery>({
+      query: CategoriesDocument,
     });
 
   return {
-    posts: postsQuery.data?.postCollection?.items || [],
+    categories: categoriesQuery.data?.categoryCollection?.items || [],
   };
 };
 
 export default async function Home() {
-  const { posts } = await getData();
+  const { categories } = await getData();
 
   return (
     <main className="">
       <div>
-        {posts.map((post) => (
-          <div key={post?.sys.id}>
-            <Link href={`/${post?.category?.slug}/${post?.slug}`}>
-              {post?.title}
-            </Link>
+        {categories.map((category) => (
+          <div key={category?.sys.id}>
+            <Link href={`/${category?.slug}`}>{category?.title}</Link>
           </div>
         ))}
       </div>

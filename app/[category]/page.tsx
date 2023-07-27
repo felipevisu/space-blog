@@ -1,12 +1,18 @@
+export const revalidate = 60;
+
 import {
   CategoriesPathsDocument,
   CategoriesPathsQuery,
   CategoryDocument,
   CategoryFragment,
   CategoryQuery,
+  PostFragment,
+  PostsDocument,
+  PostsQuery,
 } from "@/graphql/types";
 import client from "@/lib/client";
 import { ApolloQueryResult } from "@apollo/client";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const generateStaticParams = async () => {
@@ -24,6 +30,7 @@ export const generateStaticParams = async () => {
 
 interface Data {
   category?: CategoryFragment;
+  posts: Array<PostFragment | null>;
 }
 
 const getData = async (slug: string): Promise<Data> => {
@@ -33,8 +40,15 @@ const getData = async (slug: string): Promise<Data> => {
       variables: { slug: slug },
     });
 
+  const postsQuery: ApolloQueryResult<PostsQuery> =
+    await client.query<PostsQuery>({
+      query: PostsDocument,
+      variables: { category: slug },
+    });
+
   return {
     category: categoryQuery.data?.categoryCollection?.items[0] || undefined,
+    posts: postsQuery.data?.postCollection?.items || [],
   };
 };
 
@@ -43,8 +57,22 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const { category } = await getData(params.category);
+  const { category, posts } = await getData(params.category);
   if (!category) return notFound();
 
-  return <div>{category.title}</div>;
+  return (
+    <div>
+      <h3>{category.title}</h3>
+      <hr />
+      <div>
+        {posts.map((post) => (
+          <div key={post?.sys.id}>
+            <Link href={`/${params.category}/${post?.slug}`}>
+              {post?.title}
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

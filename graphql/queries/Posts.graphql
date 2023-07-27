@@ -1,5 +1,9 @@
-query Posts($limit: Int, $skip: Int) {
-  postCollection(limit: $limit, skip: $skip) {
+query Posts($limit: Int, $skip: Int, $category: String) {
+  postCollection(
+    limit: $limit
+    skip: $skip
+    where: { category: { slug: $category } }
+  ) {
     items {
       ...Post
     }

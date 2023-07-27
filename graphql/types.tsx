@@ -1002,7 +1002,7 @@ export type CfCategoryNestedFilter = {
 
 export type CategoryFragment = { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } };
 
-export type PostFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null, category?: { __typename?: 'Category', slug?: string | null } | null };
+export type PostFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
 
 export type PostDetailsFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
 
@@ -1039,10 +1039,11 @@ export type PostQuery = { __typename?: 'Query', postCollection?: { __typename?: 
 export type PostsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null, category?: { __typename?: 'Category', slug?: string | null } | null } | null> } | null };
+export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
 
 export type PostsPathsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1076,9 +1077,6 @@ export const PostFragmentDoc = gql`
     items {
       name
     }
-  }
-  category {
-    slug
   }
 }
     `;
@@ -1272,8 +1270,8 @@ export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
 export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
 export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
 export const PostsDocument = gql`
-    query Posts($limit: Int, $skip: Int) {
-  postCollection(limit: $limit, skip: $skip) {
+    query Posts($limit: Int, $skip: Int, $category: String) {
+  postCollection(limit: $limit, skip: $skip, where: {category: {slug: $category}}) {
     items {
       ...Post
     }
@@ -1295,6 +1293,7 @@ export const PostsDocument = gql`
  *   variables: {
  *      limit: // value for 'limit'
  *      skip: // value for 'skip'
+ *      category: // value for 'category'
  *   },
  * });
  */

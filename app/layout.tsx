@@ -1,29 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import client from "@/lib/client";
-import {
-  CategoriesDocument,
-  CategoriesQuery,
-  CategoryFragment,
-} from "@/graphql/types";
-import { ApolloQueryResult } from "@apollo/client";
+
 import Link from "next/link";
-
-interface Data {
-  categories: Array<CategoryFragment | null>;
-}
-
-const getData = async (): Promise<Data> => {
-  const categoriesQuery: ApolloQueryResult<CategoriesQuery> =
-    await client.query<CategoriesQuery>({
-      query: CategoriesDocument,
-    });
-
-  return {
-    categories: categoriesQuery.data?.categoryCollection?.items || [],
-  };
-};
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,20 +16,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { categories } = await getData();
   return (
     <html lang="en">
       <body className={inter.className}>
         <h1>
           <Link href="/">A Blog about Music</Link>
         </h1>
-        <nav>
-          {categories.map((category) => (
-            <div key={category?.sys.id}>
-              <Link href={`/${category?.slug}`}>{category?.title}</Link>
-            </div>
-          ))}
-        </nav>
+        <hr />
         {children}
       </body>
     </html>

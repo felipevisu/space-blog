@@ -13,7 +13,4 @@ fragment Post on Post {
       name
     }
   }
-  category {
-    slug
-  }
 }
