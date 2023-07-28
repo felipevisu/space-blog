@@ -1,4 +1,4 @@
-export const revalidate = 10;
+export const revalidate = 20;
 
 import client from "@/lib/client";
 import { PostFragment, PostsDocument, PostsQuery } from "@/graphql/types";
