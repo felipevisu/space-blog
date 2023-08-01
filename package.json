@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 3030",
     "lint": "next lint",
-    "gen": "graphql-codegen --config codegen.yml --require dotenv/config"
+    "gen": "graphql-codegen --config codegen.yml --require dotenv/config -w"
   },
   "dependencies": {
     "@apollo/client": "^3.8.0-rc.1",

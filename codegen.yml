@@ -10,16 +10,11 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
-      - "typescript-apollo-client-helpers"
     config:
       scalars:
         JSONString: string
         UUID: string
-        Metadata: Record<string, string>
         DateTime: string
       dedupeOperationSuffix: true # Prevent suffix duplication in generated names
       namingConvention:
         enumValues: change-case-all#upperCase
-  ./graphql.schema.json:
-    plugins:
-      - "introspection"
