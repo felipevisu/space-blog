@@ -194,12 +194,8 @@ export type AssetLinkingCollectionsPostCollectionArgs = {
 };
 
 export enum AssetLinkingCollectionsPostCollectionOrder {
-  DATE_ASC = 'date_ASC',
-  DATE_DESC = 'date_DESC',
   SLUG_ASC = 'slug_ASC',
   SLUG_DESC = 'slug_DESC',
-  SUBTITLE_ASC = 'subTitle_ASC',
-  SUBTITLE_DESC = 'subTitle_DESC',
   SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
   SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
   SYS_ID_ASC = 'sys_id_ASC',
@@ -281,7 +277,6 @@ export type AuthorFilter = {
 export type AuthorLinkingCollections = {
   __typename?: 'AuthorLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
-  postCollection?: Maybe<PostCollection>;
 };
 
 
@@ -291,34 +286,6 @@ export type AuthorLinkingCollectionsEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
-
-
-export type AuthorLinkingCollectionsPostCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<AuthorLinkingCollectionsPostCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export enum AuthorLinkingCollectionsPostCollectionOrder {
-  DATE_ASC = 'date_ASC',
-  DATE_DESC = 'date_DESC',
-  SLUG_ASC = 'slug_ASC',
-  SLUG_DESC = 'slug_DESC',
-  SUBTITLE_ASC = 'subTitle_ASC',
-  SUBTITLE_DESC = 'subTitle_DESC',
-  SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
-  SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
-  SYS_ID_ASC = 'sys_id_ASC',
-  SYS_ID_DESC = 'sys_id_DESC',
-  SYS_PUBLISHEDAT_ASC = 'sys_publishedAt_ASC',
-  SYS_PUBLISHEDAT_DESC = 'sys_publishedAt_DESC',
-  SYS_PUBLISHEDVERSION_ASC = 'sys_publishedVersion_ASC',
-  SYS_PUBLISHEDVERSION_DESC = 'sys_publishedVersion_DESC',
-  TITLE_ASC = 'title_ASC',
-  TITLE_DESC = 'title_DESC'
-}
 
 export enum AuthorOrder {
   NAME_ASC = 'name_ASC',
@@ -414,12 +381,8 @@ export type CategoryLinkingCollectionsPostCollectionArgs = {
 };
 
 export enum CategoryLinkingCollectionsPostCollectionOrder {
-  DATE_ASC = 'date_ASC',
-  DATE_DESC = 'date_DESC',
   SLUG_ASC = 'slug_ASC',
   SLUG_DESC = 'slug_DESC',
-  SUBTITLE_ASC = 'subTitle_ASC',
-  SUBTITLE_DESC = 'subTitle_DESC',
   SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
   SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
   SYS_ID_ASC = 'sys_id_ASC',
@@ -602,28 +565,14 @@ export type ImageTransformOptions = {
 /** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
 export type Post = Entry & {
   __typename?: 'Post';
-  authorsCollection?: Maybe<PostAuthorsCollection>;
   category?: Maybe<Category>;
   content?: Maybe<PostContent>;
   contentfulMetadata: ContentfulMetadata;
-  date?: Maybe<Scalars['DateTime']['output']>;
   linkedFrom?: Maybe<PostLinkingCollections>;
   slug?: Maybe<Scalars['String']['output']>;
-  subTitle?: Maybe<Scalars['String']['output']>;
   sys: Sys;
   thumbnail?: Maybe<Asset>;
   title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
-export type PostAuthorsCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<PostAuthorsCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<AuthorFilter>;
 };
 
 
@@ -642,12 +591,6 @@ export type PostContentArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
-export type PostDateArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
 export type PostLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -655,12 +598,6 @@ export type PostLinkedFromArgs = {
 
 /** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
 export type PostSlugArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/dvbd88vdtp90/content_types/post) */
-export type PostSubTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -676,27 +613,6 @@ export type PostThumbnailArgs = {
 export type PostTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
-
-export type PostAuthorsCollection = {
-  __typename?: 'PostAuthorsCollection';
-  items: Array<Maybe<Author>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export enum PostAuthorsCollectionOrder {
-  NAME_ASC = 'name_ASC',
-  NAME_DESC = 'name_DESC',
-  SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
-  SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
-  SYS_ID_ASC = 'sys_id_ASC',
-  SYS_ID_DESC = 'sys_id_DESC',
-  SYS_PUBLISHEDAT_ASC = 'sys_publishedAt_ASC',
-  SYS_PUBLISHEDAT_DESC = 'sys_publishedAt_DESC',
-  SYS_PUBLISHEDVERSION_ASC = 'sys_publishedVersion_ASC',
-  SYS_PUBLISHEDVERSION_DESC = 'sys_publishedVersion_DESC'
-}
 
 export type PostCollection = {
   __typename?: 'PostCollection';
@@ -740,23 +656,12 @@ export type PostContentResources = {
 export type PostFilter = {
   AND?: InputMaybe<Array<InputMaybe<PostFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<PostFilter>>>;
-  authors?: InputMaybe<CfAuthorNestedFilter>;
-  authorsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   category?: InputMaybe<CfCategoryNestedFilter>;
   category_exists?: InputMaybe<Scalars['Boolean']['input']>;
   content_contains?: InputMaybe<Scalars['String']['input']>;
   content_exists?: InputMaybe<Scalars['Boolean']['input']>;
   content_not_contains?: InputMaybe<Scalars['String']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  date?: InputMaybe<Scalars['DateTime']['input']>;
-  date_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  date_gt?: InputMaybe<Scalars['DateTime']['input']>;
-  date_gte?: InputMaybe<Scalars['DateTime']['input']>;
-  date_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
-  date_lt?: InputMaybe<Scalars['DateTime']['input']>;
-  date_lte?: InputMaybe<Scalars['DateTime']['input']>;
-  date_not?: InputMaybe<Scalars['DateTime']['input']>;
-  date_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   slug_contains?: InputMaybe<Scalars['String']['input']>;
   slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -764,13 +669,6 @@ export type PostFilter = {
   slug_not?: InputMaybe<Scalars['String']['input']>;
   slug_not_contains?: InputMaybe<Scalars['String']['input']>;
   slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  subTitle?: InputMaybe<Scalars['String']['input']>;
-  subTitle_contains?: InputMaybe<Scalars['String']['input']>;
-  subTitle_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  subTitle_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  subTitle_not?: InputMaybe<Scalars['String']['input']>;
-  subTitle_not_contains?: InputMaybe<Scalars['String']['input']>;
-  subTitle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
   thumbnail_exists?: InputMaybe<Scalars['Boolean']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -796,12 +694,8 @@ export type PostLinkingCollectionsEntryCollectionArgs = {
 };
 
 export enum PostOrder {
-  DATE_ASC = 'date_ASC',
-  DATE_DESC = 'date_DESC',
   SLUG_ASC = 'slug_ASC',
   SLUG_DESC = 'slug_DESC',
-  SUBTITLE_ASC = 'subTitle_ASC',
-  SUBTITLE_DESC = 'subTitle_DESC',
   SYS_FIRSTPUBLISHEDAT_ASC = 'sys_firstPublishedAt_ASC',
   SYS_FIRSTPUBLISHEDAT_DESC = 'sys_firstPublishedAt_DESC',
   SYS_ID_ASC = 'sys_id_ASC',
@@ -964,20 +858,6 @@ export type SysFilter = {
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
 };
 
-export type CfAuthorNestedFilter = {
-  AND?: InputMaybe<Array<InputMaybe<CfAuthorNestedFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<CfAuthorNestedFilter>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  name_contains?: InputMaybe<Scalars['String']['input']>;
-  name_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  name_not?: InputMaybe<Scalars['String']['input']>;
-  name_not_contains?: InputMaybe<Scalars['String']['input']>;
-  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-};
-
 export type CfCategoryNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfCategoryNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfCategoryNestedFilter>>>;
@@ -1001,9 +881,9 @@ export type CfCategoryNestedFilter = {
 
 export type CategoryFragment = { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } };
 
-export type PostFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', slug?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
+export type PostFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', slug?: string | null } | null };
 
-export type PostDetailsFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null };
+export type PostDetailsFragment = { __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
 
 export type CategoriesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1033,7 +913,7 @@ export type PostQueryVariables = Exact<{
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, subTitle?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
+export type PostQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: Array<{ __typename?: 'Asset', url?: string | null, description?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };
 
 export type PostsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1042,7 +922,7 @@ export type PostsQueryVariables = Exact<{
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', total: number, items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', slug?: string | null } | null, authorsCollection?: { __typename?: 'PostAuthorsCollection', items: Array<{ __typename?: 'Author', name?: string | null } | null> } | null } | null> } | null };
+export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', total: number, items: Array<{ __typename?: 'Post', title?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, thumbnail?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null, category?: { __typename?: 'Category', slug?: string | null } | null } | null> } | null };
 
 export type PostsPathsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1075,11 +955,6 @@ export const PostFragmentDoc = gql`
   category {
     slug
   }
-  authorsCollection {
-    items {
-      name
-    }
-  }
 }
     `;
 export const PostDetailsFragmentDoc = gql`
@@ -1089,7 +964,6 @@ export const PostDetailsFragmentDoc = gql`
   }
   title
   slug
-  subTitle
   thumbnail {
     title
     url
@@ -1113,11 +987,6 @@ export const PostDetailsFragmentDoc = gql`
           description
         }
       }
-    }
-  }
-  authorsCollection {
-    items {
-      name
     }
   }
 }

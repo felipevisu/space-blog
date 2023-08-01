@@ -4,7 +4,6 @@ fragment PostDetails on Post {
   }
   title
   slug
-  subTitle
   thumbnail {
     title
     url
@@ -28,11 +27,6 @@ fragment PostDetails on Post {
           description
         }
       }
-    }
-  }
-  authorsCollection {
-    items {
-      name
     }
   }
 }

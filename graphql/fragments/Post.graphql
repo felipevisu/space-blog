@@ -11,9 +11,4 @@ fragment Post on Post {
   category {
     slug
   }
-  authorsCollection {
-    items {
-      name
-    }
-  }
 }

@@ -15,7 +15,7 @@ interface PageProps {
 }
 
 interface Data {
-  posts: PostFragment[];
+  posts: Array<PostFragment | null>;
   total: number;
 }
 
@@ -31,7 +31,7 @@ const getData = async (searchParams: SearchParams): Promise<Data> => {
     });
 
   return {
-    posts: (postsQuery.data?.postCollection?.items as PostFragment[]) || [],
+    posts: postsQuery.data?.postCollection?.items || [],
     total: postsQuery.data?.postCollection?.total || 0,
   };
 };

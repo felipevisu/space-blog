@@ -14,7 +14,7 @@ import client from "@/lib/client";
 const inter = Inter({ subsets: ["latin"] });
 
 interface Data {
-  categories: CategoryFragment[];
+  categories: Array<CategoryFragment | null>;
 }
 
 const getData = async (): Promise<Data> => {
@@ -24,9 +24,7 @@ const getData = async (): Promise<Data> => {
     });
 
   return {
-    categories:
-      (categoriesQuery.data?.categoryCollection?.items as CategoryFragment[]) ||
-      [],
+    categories: categoriesQuery.data?.categoryCollection?.items || [],
   };
 };
 
@@ -50,15 +48,18 @@ export default async function RootLayout({
             </h1>
           </header>
           <nav className="flex space-x-6 py-4 border-b mb-6">
-            {categories.map((category) => (
-              <div key={category?.sys.id}>
-                <Link href={`/${category?.slug}`}>
-                  <span className="text-white font-semibold hover:text-yellow-500">
-                    {category?.title}
-                  </span>
-                </Link>
-              </div>
-            ))}
+            {categories.map(
+              (category) =>
+                category && (
+                  <div key={category.sys.id}>
+                    <Link href={`/${category.slug}`}>
+                      <span className="text-white font-semibold hover:text-yellow-500">
+                        {category.title}
+                      </span>
+                    </Link>
+                  </div>
+                )
+            )}
           </nav>
           {children}
         </div>
